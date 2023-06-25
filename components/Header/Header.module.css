@@ -1,0 +1,60 @@
+.header__wrapper {
+    width: 1700px;
+    height: 75px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 1px solid pink;
+}
+
+.input_name_wrapper{
+    height: 30px;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    width: fit-content;
+}
+
+.input_name {
+    padding-inline: 5px;
+    color: palevioletred;
+    width: 200px;
+    height: 30px;
+    background-color: #111;
+    border: 1px solid palevioletred;
+}
+
+.input_name:focus {
+    border: 1px solid palevioletred;
+    outline: none;
+}
+
+
+.input_name_label {
+    margin-right: 15px;
+    font-size: 25px;
+}
+
+.input_name_button {
+    padding: 5px;
+    height: 30px;
+    font-size: 15px;
+    color: palevioletred;
+    background-color: transparent;
+    border: 1px solid palevioletred;
+    outline: none;
+    transition-duration: 0.2s;
+}
+.input_name_button:hover {
+    border: 2px solid palevioletred;
+    transform:scale(1.1);
+    transition-duration: 0.2s;
+}
+
+.input_name_button:active {
+    transition-duration: 0.2s;
+    background-color: palevioletred;
+    color: white;
+    border: 1px solid white;
+}
