@@ -4,7 +4,7 @@
   background-color: white;
   width: 2px;
 }
-/* Цвет фона скроллбара */
+
 ::-webkit-scrollbar {
   background-color: #111;
   width: 2px;
@@ -17,49 +17,6 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-@keyframes textGlimmering {
-  0% {
-    color: red;
-    border-color: red;
-  }
-
-  14% {
-    color: orange;
-    border-color: orange;
-
-  }
-
-  28% {
-    color: yellow;
-    border-color: yellow;
-  }
-
-  42% {
-    color: greenyellow;
-    border-color: greenyellow;
-  }
-
-  56% {
-    color: lightblue;
-    border-color: lightblue;
-  }
-
-  70% {
-    color: blue;
-    border-color: blue;
-  }
-
-  84% {
-    color: purple;
-    border-color: purple;
-  }
-
-  100% {
-    color: violet;
-    border-color: violet;
-  }
 }
 
 html,

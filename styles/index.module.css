@@ -8,8 +8,16 @@
     scroll-behavior: smooth;
 }
 
+@media (max-width: 800px) {
+    .main {
+        padding: 10px;
+        width: 100vw;
+        height: 100vh;
+        font-size: 13px;
+    }
+}
+
 .input_area input {
-    width: 100%;
     background-color: #111;
     border: none;
     border-bottom: 1px solid;
@@ -21,6 +29,7 @@
 
 .input_area {
     position: relative;
+    margin-bottom: 5px;
 }
 
 .input_area button {
@@ -37,5 +46,7 @@
 }
 
 .messages_area li {
-    overflow-x: hidden;
+    width: 100%;
+    height: auto;
+    word-wrap: break-word;
 }

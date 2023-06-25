@@ -67,7 +67,7 @@ export default function Home() {
         <div className={style.messages_area}>
           <div className={style.input_area}>
             <form onSubmit={handleSubmit}>
-              <input value = {text} onChange = {(e) => {setText(e.target.value)}} maxLength={115}/>
+              <input placeholder='Type your message here' value = {text} onChange = {(e) => {setText(e.target.value)}} maxLength={115}/>
               <button type = 'submit'>{'>'}</button>
             </form>
           </div>
