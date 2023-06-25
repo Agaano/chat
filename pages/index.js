@@ -9,10 +9,6 @@ export default function Home() {
   const [messages, SetMessages] = useState([]);
   const [newMessages,setNewMessages] = useState([]);
 
-  function onMessage(e) {
-    setNewMessages(JSON.parse(e.data))
-  }
-
   useEffect(() => {
     const setNew = () => {
       SetMessages([...messages, ...newMessages]);
@@ -25,15 +21,35 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+    let oldLength;
+    let oldData;
     const getMessages = async () => {
       const response = await fetch('/api/getAllMessages')
       const data = await response.json();
+      oldLength = data.data.length;
+      oldData = data.data;
       SetMessages(data.data);
     }
 
-    const response = new EventSource('/api/getMessages');
-    
-    response.onmessage = onMessage;
+    const interval = setInterval(async () => {
+      const response = await fetch('/api/getLength')
+      const data = await response.json();
+      const length = data.length;
+      console.log(length === oldLength);
+      if (length !== oldLength) {
+        const response = await fetch('/api/getMessage', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            messages: oldData,
+          })
+        })
+        const data = await response.json();
+        setNewMessages(data.messages);
+        oldLength = length;
+        oldData.push(data.messages)
+      }
+    }, 2500);
 
     getMessages();
 
@@ -51,7 +67,7 @@ export default function Home() {
     else getName()
 
     return () => {
-      response.close();
+      clearInterval(interval);
     };
   }, []) 
 
