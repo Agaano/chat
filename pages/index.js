@@ -128,9 +128,7 @@ export default function Home() {
                     </div>
                     <button onClick={() => showAnswerBtn(name)} className={style.user__message_answerBtn}>Answer</button>
                   </li>
-                  
                 </div>
-                
               ) 
               })}
           </ul>

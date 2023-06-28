@@ -28,8 +28,6 @@
   background-color: #000;
   color: #fff;
 }
-.main__user_avatar {
-}
 .your_name {
   flex-grow: 3;
 }
@@ -180,6 +178,6 @@ body[data-theme='light'] .changeThemeBtn {
   .user__message_answerBtn {
     display: block;
     top: 7%;
-    left: 34%;
+    left: 37%;
   }
 }
