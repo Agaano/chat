@@ -1,19 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
 
+body[data-theme='dark'] {
+  --colors-text: hsl(0, 0%, 100%);
+  --colors-bg: hsl(207, 26%, 17%);
+  --colors-ui-base: hsl(209, 23%, 22%);
+
+  --shadow: rgba(245, 245, 245, 0.2) 0 0 8px;
+}
+body[data-theme='light'] {
+  --colors-text: hsl(200, 15%, 8%);
+  --colors-bg: hsl(0, 0%, 98%);
+  --colors-ui-base: hsl(0, 0%, 100%);
+  --colors-ui-alt: hsl(200, 15%, 8%);
+
+  --shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
 ::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: #fff;
   width: 2px;
 }
 
 ::-webkit-scrollbar {
-  background-color: #111;
+  background-color: #908a8a;
   width: 2px;
 }
 
 * {
-  color: white;
-  border: white;
-  font-family:'Goldman';
+  /* color: white; */
+  /* border: white; */
+  font-family: 'Goldman';
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -23,9 +39,15 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: #111;
+  /* background-color: #111; */
 }
 
+body,
+input,
+button {
+  color: var(--colors-text);
+  background-color: var(--colors-bg);
+}
 a {
   color: inherit;
   text-decoration: none;
