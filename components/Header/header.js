@@ -1,6 +1,7 @@
+import React from 'react'
 import style from './Header.module.css'
 
-export default () => {
+export default React.memo(() => {
     return (
         <>
             <div className = {style.header__wrapper}>
@@ -10,4 +11,4 @@ export default () => {
             </div>
         </>
     )
-}
+}) 

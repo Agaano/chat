@@ -1,12 +1,20 @@
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head'
 import style from '@/styles/index.module.css'
-import { useState, useEffect } from 'react'
+import send from '../images/send.svg';
 import cookies from 'js-cookie';
 
 export default function Home() {
   const [text, setText] = useState('');
   const [name, setName] = useState('');
   const [messages, SetMessages] = useState([]);
+  const [theme, setTheme] = useState("light")
+
+  const toggleTheme = () => setTheme(theme == "light" ? "dark" : "light");
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  },  [theme])
   
   useEffect(() => {
     const getMessages = async () => {
@@ -14,7 +22,6 @@ export default function Home() {
       const data = await response.json();
       SetMessages(data.data);
     }
-
     const interval = setInterval(async () => {
       getMessages();
     }, 1000);
@@ -33,10 +40,11 @@ export default function Home() {
     }
     if (cookies.get('_n')) setName(cookies.get('_n')); 
     else getName()
-
     return () => {
       clearInterval(interval);
     };
+
+
   }, []) 
 
   const handleSubmit = async (e) => {
@@ -54,6 +62,18 @@ export default function Home() {
     })
   }
 
+  const checkingDate = (date) => {
+    let result = '';
+    let strDate = String(date);
+
+    {strDate.length == 1 ? result = `0${strDate}` : result = strDate};
+    return result;
+  };
+
+  const showAnswerBtn = (name) => {
+    setText(`${name}, `)
+  }
+ 
   return (
     <>
       <Head>
@@ -63,22 +83,56 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={style.main}>
-        <span className={style.your_name}>Your name is {name}</span>
+        <div className={style.main__user}>
+          <div className={style.main__user_avatar}>
+            <p>{Array.from(name)[0]}</p>
+          </div>
+          <span className={style.your_name}>{name}</span>
+          <button onClick={toggleTheme} className={style.changeThemeBtn}>Change Theme</button>
+        </div>
+
+        
         <div className={style.messages_area}>
           <div className={style.input_area}>
             <form onSubmit={handleSubmit}>
               <input placeholder='Type your message here' value = {text} onChange = {(e) => {setText(e.target.value)}} maxLength={115}/>
-              <button type = 'submit'>{'>'}</button>
+              <div className='message_send'>{
+                <img src={send.src} width={30} height={30} />
+              }</div>
             </form>
+          
           </div>
           <ul>
-          {messages.sort((a,b) => {return b.id - a.id}).map(({id,text,name, date}, index)=> {
-            const newdate = new Date(date);
-            const correctDate = newdate.getDate() + '/' + (newdate.getMonth() + 1) + ' ' + newdate.getHours() + ':' + newdate.getMinutes();
-            return <li key = {index}>
-              {correctDate} · {name}: {text}
-             </li>
-            })}
+            {messages.sort((a,b) => {return b.id - a.id}).map(({id,text,name, date}, index)=> {
+              const newdate = new Date(date);
+              const correctDate = checkingDate(newdate.getDate()) + '/' + checkingDate((newdate.getMonth() + 1)) + ' ' + checkingDate(newdate.getHours()) + ':' + checkingDate(newdate.getMinutes());
+              return (
+                <div className={style.message}>
+                  <li key = {index}>
+                    <div className={style.user__message_wrapper}>
+                      <div className={style.user_avatar}>
+                        <p>{Array.from(name)[0]}</p>
+                      </div>
+
+                      <div className='user__message_name'>
+                        <span>{name}</span>
+                      </div>
+
+                      <div className={style.user__message_text}>
+                        {text}
+                      </div>
+
+                      <div className={style.user__message_date}>
+                        {correctDate}
+                      </div>     
+                    </div>
+                    <button onClick={() => showAnswerBtn(name)} className={style.user__message_answerBtn}>Answer</button>
+                  </li>
+                  
+                </div>
+                
+              ) 
+              })}
           </ul>
         </div>
       </main>
