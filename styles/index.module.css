@@ -171,6 +171,7 @@ body[data-theme='light'] .changeThemeBtn {
     left: 70%;
   }
 }
+
 @media (max-width: 530px) {
   .user__message_wrapper {
     max-width: 100%;
