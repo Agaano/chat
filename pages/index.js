@@ -8,14 +8,19 @@ export default function Home() {
   const [text, setText] = useState('');
   const [name, setName] = useState('');
   const [messages, SetMessages] = useState([]);
-  const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState(() => {
+   const savedTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
+   return savedTheme;
+  })
 
-  const toggleTheme = () => setTheme(theme == "light" ? "dark" : "light");
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
-  },  [theme])
-  
+    localStorage.setItem('theme', theme);
+  },  [theme]);
+
+  const toggleTheme = () => setTheme(theme == "light" ? "dark" : "light");
+    
   useEffect(() => {
     const getMessages = async () => {
       const response = await fetch('/api/getAllMessages')
@@ -97,7 +102,9 @@ export default function Home() {
             <form onSubmit={handleSubmit}>
               <input placeholder='Type your message here' value = {text} onChange = {(e) => {setText(e.target.value)}} maxLength={115}/>
               <div className='message_send'>{
-                <img src={send.src} width={30} height={30} />
+                <button type='submit'>
+                  <img src={send.src} width={30} height={30} />
+                </button>
               }</div>
             </form>
           
